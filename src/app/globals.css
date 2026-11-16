@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Trade Validator design tokens — extracted from the Framer project
+ * (trade.mifx.com/trade-validator/gold). Light page, navy ink, MIFX green.
+ */
+@theme {
+  /* Breakpoints match the Framer page: phone < 810 ≤ tablet < 1200 ≤ desktop */
+  --breakpoint-tablet: 810px;
+  --breakpoint-desktop: 1200px;
+
+  /* Ink */
+  --color-ink-900: #253947; /* headings, menu labels, label pill */
+  --color-ink-700: #4a5664; /* body copy */
+  --color-ink-500: #7a8190; /* meta, notes, disclaimer */
+
+  /* Surfaces */
+  --color-mist: #f6f6f9; /* menu buttons, dividers */
+  --color-mint: #caedd6; /* menu button hover */
+
+  /* MIFX green */
+  --color-green-500: #00a562; /* CTA, source links, pressed menu */
+  --color-green-600: #00804b; /* CTA hover */
+  --color-green-700: #006339; /* CTA pressed */
+
+  /*
+   * Framer's spring (type "spring", bounce 0.2) sampled with Motion's own
+   * solver — used with the 0.4s hover/press transitions.
+   */
+  --ease-spring: linear(
+    0,
+    0.0224,
+    0.0794,
+    0.1581,
+    0.2486,
+    0.3435,
+    0.4375,
+    0.5269,
+    0.6093,
+    0.6833,
+    0.7484,
+    0.8044,
+    0.8518,
+    0.8911,
+    0.9231,
+    0.9487,
+    0.9688,
+    0.9841,
+    0.9954,
+    1.0036,
+    1.0091,
+    1.0125,
+    1.0144,
+    1.0151,
+    1.015,
+    1.0142,
+    1.0131,
+    1.0118,
+    1.0104,
+    1.0089,
+    1.0076,
+    1.0063,
+    1.0051,
+    1.0041,
+    1.0032,
+    1.0024,
+    1.0018,
+    1.0013,
+    1.0009,
+    1.0006,
+    1
+  );
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-inter);
+  /* 16px regular copy: Framer's "Inter Variable", falling back to Inter */
+  --font-text: var(--font-inter-text), var(--font-inter);
+  --color-ring: var(--ring);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* shadcn semantic tokens mapped to the Trade Validator palette */
+:root {
+  --background: #ffffff;
+  --foreground: #253947;
+  --primary: #00a562;
+  --primary-foreground: #ffffff;
+  --muted: #f6f6f9;
+  --muted-foreground: #7a8190;
+  --border: #f6f6f9;
+  --ring: #00a562;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Page title: 24/31.92 (phone) → 32/40 (tablet) → 48/51.84 (desktop) */
+  .t-title {
+    @apply text-[24px] leading-[31.92px] font-bold tracking-[-0.6px] text-ink-900 tablet:text-[32px] tablet:leading-[40px] tablet:tracking-[-0.8px] desktop:text-[48px] desktop:leading-[51.84px] desktop:tracking-[-1.2px];
+  }
+  /* Article headline: 24/31.92 → 32/40 on desktop */
+  .t-article {
+    @apply text-[24px] leading-[31.92px] font-bold tracking-[-0.6px] text-ink-900 desktop:text-[32px] desktop:leading-[40px] desktop:tracking-[-0.8px];
+  }
+  /* Body: 16/24 */
+  .t-body {
+    @apply font-text text-[16px] leading-[24px] font-normal text-ink-700;
+  }
+  /* Small 14/19.6 medium (hero desc on phone/tablet, notes, disclaimer) */
+  .t-small {
+    @apply text-[14px] leading-[19.6px] font-medium;
+  }
+  /* Source notes: 14/19.6 medium → 16/24 regular on desktop */
+  .t-note {
+    @apply text-[14px] leading-[19.6px] font-medium text-ink-500 desktop:font-text desktop:text-[16px] desktop:leading-[24px] desktop:font-normal;
+  }
+  /* Phone: plain h2 20/28. Tablet+: inside the navy label pill, 16/24 → 18/27 */
+  .t-section {
+    @apply text-[20px] leading-[28px] font-bold tracking-[-0.3px] text-ink-900 tablet:text-[16px] tablet:leading-[24px] tablet:tracking-[-0.16px] tablet:text-white desktop:text-[18px] desktop:leading-[27px] desktop:tracking-[-0.18px];
+  }
+  /* Paragraph rhythm inside rich text (Framer: 20px between paragraphs) */
+  .prose-tv > * + * {
+    margin-top: 20px;
+  }
+  .prose-tv a,
+  .source-link {
+    @apply font-[inherit] text-green-500 underline-offset-2 hover:underline;
+  }
+}
